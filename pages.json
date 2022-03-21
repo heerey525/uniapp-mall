@@ -17,6 +17,12 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
+		},
+		{
+			"path": "pages/contact/contact",
+			"style": {
+				"navigationBarTitleText": "联系我们"
+			}
 		}
 	],
 	"globalStyle": {
@@ -34,6 +40,28 @@
 				"name": "", //模式名称
 				"path": "", //启动页面，必选
 				"query": "" //启动参数，在页面的onLoad函数里面得到
+			}
+		]
+	},
+	"tabBar": {
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/tabs/home.png",
+				"selectedIconPath": "static/tabs/home-active.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/message/message",
+				"iconPath": "static/tabs/message.png",
+				"selectedIconPath": "static/tabs/message-active.png",
+				"text": "信息"
+			},
+			{
+				"pagePath": "pages/contact/contact",
+				"iconPath": "static/tabs/contact.png",
+				"selectedIconPath": "static/tabs/contact-active.png",
+				"text": "我们"
 			}
 		]
 	}

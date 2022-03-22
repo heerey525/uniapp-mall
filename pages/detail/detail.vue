@@ -18,7 +18,7 @@
 		<view>
 			<text>decode可解码&amp;</text>
 		</view> -->
-		<view class="box" hover-class="boxHover">
+		<!-- <view class="box" hover-class="boxHover">
 			<view>view相当于html中div</view>
 			<view class="viewClass" hover-class="viewClassHover">view点击效果</view>
 			<view class="viewClass1" hover-class="viewClassHover1" hover-stop-propagation>view点击效果阻止冒泡</view>
@@ -29,7 +29,10 @@
 				hover-start-time="1000"
 				hover-stay-time="2000"
 			>view按住后1s出现点击态,手指松开后2s点击态保留时间</view>
-		</view>
+		</view> -->
+		<button size="mini" disabled>禁用小按钮</button>
+		<button type="primary" plain>镂空蓝色按钮</button>
+		<button type="primary" loading>蓝色按钮</button>
 	</view>
 </template>
 

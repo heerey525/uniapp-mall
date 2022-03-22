@@ -30,9 +30,12 @@
 				hover-stay-time="2000"
 			>view按住后1s出现点击态,手指松开后2s点击态保留时间</view>
 		</view> -->
-		<button size="mini" disabled>禁用小按钮</button>
+		<!-- <button size="mini" disabled>禁用小按钮</button>
 		<button type="primary" plain>镂空蓝色按钮</button>
-		<button type="primary" loading>蓝色按钮</button>
+		<button type="primary" loading>蓝色按钮</button> -->
+		<image src="../../static/logo.png" mode=""></image>
+		<image src="../../static/logo.png" mode="aspectFit"></image>
+		<image src="../../static/logo.png" mode="aspectFill"></image>
 	</view>
 </template>
 

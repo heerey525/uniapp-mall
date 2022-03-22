@@ -14,4 +14,8 @@
 
 <style>
 	/*每个页面公共css */
+	@import './static/fonts/iconfont.css';
+	.box {
+		background-color: #3F536E;
+	}
 </style>

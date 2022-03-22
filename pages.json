@@ -1,6 +1,9 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/uni-style/uni-style"
+		},
+		{
 			"path": "pages/message/message",
 			"style": {
 				"navigationBarTitleText": "信息页",
@@ -48,9 +51,9 @@
 	},
 	"tabBar": {
 		"color": "#000000",
-		"selectedColor": "orange",
-		"backgroundColor": "white",
-		"borderStyle": "white",
+		"selectedColor": "#FF9900",
+		"backgroundColor": "#FFFFFF",
+		"borderStyle": "#FFFFFF",
 		"position": "bottom",
 		"list": [
 			{

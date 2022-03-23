@@ -62,7 +62,7 @@
 		"color": "#000000",
 		"selectedColor": "#FF9900",
 		"backgroundColor": "#FFFFFF",
-		"borderStyle": "#FFFFFF",
+		"borderStyle": "white",
 		"position": "bottom",
 		"list": [
 			{

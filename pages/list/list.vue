@@ -1,5 +1,6 @@
 <template>
 	<view>
+		<button type="default" @click="getRequest">发送请求</button>
 		<view>列表页</view>
 		<view v-for="(item,index) in list" :key="index" class="listBox">
 			{{ '第' + item + '行' }}
@@ -44,6 +45,15 @@
 			},
 			pullDown() {
 				uni.startPullDownRefresh()
+			},
+			getRequest() {
+				uni.request({
+				    url: 'http://localhost:8082/api/getlunbo',
+				    success: (res) => {
+				        console.log(res.data);
+				        // this.text = 'request success';
+				    }
+				});
 			}
 		}
 	}

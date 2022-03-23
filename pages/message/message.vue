@@ -1,6 +1,12 @@
 <template>
 	<view>
-		<view>message 页面</view>
+		<view class="title">message 页面</view>
+		<!-- #ifdef H5 -->
+		<view>只在h5展示</view>
+		<!-- #endif -->
+		<!-- #ifdef MP-WEIXIN -->
+		<view>只在微信小程序展示</view>
+		<!-- #endif -->
 		<button type="primary" @click="chooseImg">上传图片</button>
 		<image v-for="(item,index) in imgList" :src="item" @click="previewImg(item)"></image>
 	</view>
@@ -12,6 +18,15 @@
 			return {
 				imgList: []
 			}
+		},
+		onLoad() {
+			// #ifdef H5
+			console.log('只在h5打印')
+			// #endif
+
+			// #ifdef MP-WEIXIN
+			console.log('只在微信小程序打印')
+			// #endif
 		},
 		methods: {
 			chooseImg() {
@@ -47,4 +62,12 @@
 </script>
 
 <style>
+	.title {
+		/* #ifdef H5 */
+		color: red;
+		/* #endif */
+		/* #ifdef MP-WEIXIN */
+		color: green;
+		/* #endif */
+	}
 </style>

@@ -1,9 +1,10 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text>
-		</view>
+	<view class="home">
+		<swiper class="swiper" indicator-dots circular>
+			<swiper-item v-for="item in swipers">
+				<image :src="item.img"></image>
+			</swiper-item>
+		</swiper>
 	</view>
 </template>
 
@@ -11,42 +12,32 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				swipers: []
 			}
 		},
 		onLoad() {
-
+			this.getSwipers()
 		},
 		methods: {
-
+			// 获取轮播图
+			async getSwipers() {
+				const res = await this.$myRequest({
+					url: '/api/getlunbo',
+				})
+				this.swipers = res.data.message
+			}
 		}
 	}
 </script>
 
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
+<style lang="scss">
+	.swiper {
+		width: 750rpx;
+		height: 380rpx;
 
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+		image {
+			width: 100%;
+			height: 100%;
+		}
 	}
 </style>

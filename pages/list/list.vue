@@ -1,6 +1,9 @@
 <template>
 	<view>
 		<button type="default" @click="getRequest">发送请求</button>
+		<button type="primary" @click="setStorage">本地存储</button>
+		<button type="primary" @click="getStorage">获取本地存储</button>
+		<button type="warn" @click="removeStorage">删除本地存储</button>
 		<view>列表页</view>
 		<view v-for="(item,index) in list" :key="index" class="listBox">
 			{{ '第' + item + '行' }}
@@ -54,6 +57,17 @@
 				        // this.text = 'request success';
 				    }
 				});
+			},
+			setStorage() {
+				uni.setStorageSync('key', 'keykey')
+			},
+			getStorage() {
+				console.log(uni.getStorageSync('key'))
+				const res = uni.getStorageInfoSync()
+				console.log('本地存储信息', res, res.keys, res.currentSize, res.limitSize)
+			},
+			removeStorage() {
+				uni.removeStorageSync('key')
 			}
 		}
 	}

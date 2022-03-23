@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view>列表页</view>
-		<view v-for="(item,index) in list" :key="index">
+		<view v-for="(item,index) in list" :key="index" class="listBox">
 			{{ '第' + item + '行' }}
 		</view>
 		<button type="primary" @click="pullDown">手动触发下拉刷新</button>
@@ -24,6 +24,13 @@
 				uni.stopPullDownRefresh()
 			}, 1000)
 		},
+		onReachBottom() {
+			console.log('列表触底')
+			const leng = this.list.length
+			for (let i = 0; i < 10; i++) {
+				this.list.push(i+leng)
+			}
+		},
 		onReady() {
 			this.initMethod()
 		},
@@ -43,4 +50,7 @@
 </script>
 
 <style>
+	.listBox {
+		height: 200rpx;
+	}
 </style>

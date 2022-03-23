@@ -40,6 +40,11 @@
 </template>
 
 <script>
+	export default {
+		onLoad(options) {
+			console.log('接受参数', options)
+		}
+	}
 </script>
 
 <style>

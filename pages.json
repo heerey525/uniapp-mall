@@ -5,87 +5,12 @@
 			"style": {
 				"navigationBarTitleText": "uni-app"
 			}
-		},
-		{
-			"path": "pages/navigator/navigator"
-		},
-		{
-			"path": "pages/message/message",
-			"style": {
-				"navigationBarTitleText": "信息页",
-				"navigationBarBackgroundColor": "#cccccc",
-				"h5": {
-					"pullToRefresh": {
-						"color": "#7D26CD"
-					}
-				}
-			}
-		},
-		{
-			"path": "pages/list/list",
-			"style": {
-				"navigationBarTitleText": "列表页",
-				"enablePullDownRefresh": true
-			}
-		},
-		{
-			"path": "pages/home/home"
-		},
-		{
-			"path": "pages/uni-style/uni-style"
-		},
-		{
-			"path": "pages/contact/contact",
-			"style": {
-				"navigationBarTitleText": "联系我们"
-			}
-		},
-		{
-			"path": "pages/detail/detail"
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "uni-app mall",
-		"navigationBarBackgroundColor": "#000000",
-		"backgroundColor": "#F8F8F8",
-		"backgroundTextStyle": "light"
-	},
-	"condition" : { //模式配置，仅开发期间生效
-		"current": 0, //当前激活的模式(list 的索引项)
-		"list": [
-			{
-				"name": "详情页", //模式名称
-				"path": "pages/detail/detail", //启动页面，必选
-				"query": "id=88" //启动参数，在页面的onLoad函数里面得到
-			}
-		]
-	},
-	"tabBar": {
-		"color": "#000000",
-		"selectedColor": "#FF9900",
-		"backgroundColor": "#FFFFFF",
-		"borderStyle": "white",
-		"position": "bottom",
-		"list": [
-			{
-				"pagePath": "pages/index/index",
-				"iconPath": "static/tabs/home.png",
-				"selectedIconPath": "static/tabs/home-active.png",
-				"text": "首页"
-			},
-			{
-				"pagePath": "pages/message/message",
-				"iconPath": "static/tabs/message.png",
-				"selectedIconPath": "static/tabs/message-active.png",
-				"text": "信息"
-			},
-			{
-				"pagePath": "pages/contact/contact",
-				"iconPath": "static/tabs/contact.png",
-				"selectedIconPath": "static/tabs/contact-active.png",
-				"text": "我们"
-			}
-		]
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
 	}
 }

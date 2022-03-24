@@ -14,6 +14,12 @@
 		{
 			"path": "pages/member/member",
 			"style": {}
+		},
+		{
+			"path": "pages/goods/goods",
+			"style": {
+				"navigationBarTitleText": "商品列表"
+			}
 		}
 	],
 	"globalStyle": {

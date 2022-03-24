@@ -25,6 +25,10 @@
 		{
 			"path" : "pages/contact/contact",
 			"style" : {}
+		},
+		{
+			"path" : "pages/pics/pics",
+			"style" : {}
 		}
   ],
 	"globalStyle": {

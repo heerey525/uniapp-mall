@@ -21,8 +21,12 @@
 				"navigationBarTitleText": "商品列表",
 				"enablePullDownRefresh": true
 			}
+		},
+		{
+			"path" : "pages/contact/contact",
+			"style" : {}
 		}
-	],
+  ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarTitleText": "uniapp-mall",

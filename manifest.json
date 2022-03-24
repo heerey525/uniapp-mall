@@ -68,5 +68,14 @@
     "uniStatistics" : {
         "enable" : false
     },
-    "vueVersion" : "2"
+    "vueVersion" : "2",
+    "h5" : {
+        "sdkConfigs" : {
+            "maps" : {
+                "qqmap" : {
+                    "key" : "SM4BZ-VUS6X-CJO4C-7AJSZ-5RJI6-LDFKD" // 腾讯地图key
+                }
+            }
+        }
+    }
 }

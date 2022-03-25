@@ -16,7 +16,7 @@
 		<!-- 推荐商品 -->
 		<view class="hots_goods">
 			<view class="title">推荐商品</view>
-			<goods-list :goods="goods"></goods-list>
+			<goods-list :goods="goods" @goodsItemClick="goGoodsDetail"></goods-list>
 		</view>
 	</view>
 </template>
@@ -55,6 +55,11 @@
 				const res = await this.$myRequest({ url: '/api/getgoods?pageindex=' + this.pageindex })
 				console.log('获取推荐商品', res)
 				this.goods = res.data.message
+			},
+			goGoodsDetail(id) {
+				uni.navigateTo({
+					url: '/pages/goods-detail/goods-detail?id=' + id
+				})
 			}
 		}
 	}

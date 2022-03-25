@@ -1,6 +1,6 @@
 <template>
 	<view class="goodsBox">
-		<goods-list :goods="goods"></goods-list>
+		<goods-list :goods="goods" @goodsItemClick="goGoodsDetail"></goods-list>
 		<view class="isOver" v-if="visible">------我是有底线的------</view>
 	</view>
 </template>
@@ -44,6 +44,11 @@
 				}
 				this.goods = [...this.goods, ...res.data.message]
 				if (res.data.message.length < 10) this.visible = true
+			},
+			goGoodsDetail(id) {
+				uni.navigateTo({
+					url: '/pages/goods-detail/goods-detail?id=' + id
+				})
 			}
 		}
 	}

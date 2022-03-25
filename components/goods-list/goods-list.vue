@@ -1,6 +1,6 @@
 <template>
 	<view class="goods_list">
-		<view class="goods_item" v-for="item in goods" :key="item.id">
+		<view class="goods_item" v-for="item in goods" :key="item.id" @click="navigator(item.id)">
 			<image :src="item.img_url"></image>
 			<view class="price">
 				<text>￥{{ item.sell_price }}</text>
@@ -20,6 +20,11 @@
 				default: () => {
 					return []
 				}
+			}
+		},
+		methods: {
+			navigator(id) {
+				this.$emit('goodsItemClick', id)
 			}
 		}
 	}

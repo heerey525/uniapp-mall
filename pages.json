@@ -29,6 +29,14 @@
 		{
 			"path" : "pages/pics/pics",
 			"style" : {}
+		},
+		{
+			"path" : "pages/news-detail/news-detail",
+			"style" : {}
+    },
+		{
+			"path" : "pages/goods-detail/goods-detail",
+			"style" : {}
 		}
   ],
 	"globalStyle": {

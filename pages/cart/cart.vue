@@ -31,9 +31,9 @@
 							<view class="goods_price_wrap">
 								<view class="goods_price">￥{{ item.sell_price }}</view>
 								<view class="cart_num_tool">
-									<view class="num_edit">-</view>
+									<view class="num_edit" @click="numChange(index, '-')">-</view>
 									<view class="goods_num">{{ item.num }}</view>
-									<view class="num_edit">+</view>
+									<view class="num_edit" @click="numChange(index, '+')">+</view>
 								</view>
 							</view>
 						</view>
@@ -54,7 +54,7 @@
 				</view>
 				<view>包含运费</view>
 			</view>
-			<view class="order_pay_wrap">
+			<view class="order_pay_wrap" @click="pay">
 				{{ num ? `结算(${num})` : '结算' }}
 			</view>
 		</view>
@@ -105,8 +105,10 @@
 				cart[index].checked = !!e.detail.value.length
 				uni.setStorageSync('cart', cart)
 				
-				this.isCheckAll()
-				this.settlement()
+				this.$nextTick(() => {
+					this.isCheckAll()
+					this.settlement()
+				})
 			},
 			allCheckChange(e) {
 				const cart = uni.getStorageSync('cart')
@@ -135,16 +137,41 @@
 						this.num = num
 						this.price = sell_price * num
 					} else {
-						const { num, sell_price } = filters.reduce((a,b) => {
-							return {...a, num: a.num + b.num, sell_price: a.num * a.sell_price + b.num * b.sell_price }
+						const { num, price } = filters.reduce((a,b) => {
+							const price = a.price ? a.price : a.num * a.sell_price
+							return {...a, num: a.num + b.num, price: price + b.num * b.sell_price }
 						})
 						this.num = num
-						this.price = sell_price
+						this.price = price
 					}
 				} else {
 					this.num = 0
 					this.price = 0
 				}
+			},
+			numChange(index, mark) {
+				const cart = uni.getStorageSync('cart')
+				if (mark === '-') {
+					if (cart[index].num === 1) {
+						cart.splice(index, 1)
+					} else {
+						cart[index].num--
+					}
+				} else {
+					cart[index].num++
+				}
+				
+				uni.setStorageSync('cart', cart)
+				this.list = [...cart]
+				
+				this.isCheckAll()
+				this.settlement()
+			},
+			pay() {
+				uni.showToast({
+					title: '去支付',
+					icon: 'none'
+				})
 			}
 		}
 	}

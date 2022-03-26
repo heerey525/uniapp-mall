@@ -81,7 +81,9 @@
 				if (cart.length === 1) {
 					this.options[2].info = cart[0].num
 				} else {
-					const num = cart.reduce((a,b) => a.num + b.num)
+					const { num } = cart.reduce((a,b) => {
+						return {...a, num: a.num + b.num}
+					})
 					this.options[2].info = num
 				}
 			}
@@ -90,19 +92,19 @@
 			// 获取详情轮播图
 			async getSwipers() {
 				const res = await this.$myRequest({ url: '/api/getthumimages/' + this.id })
-				console.log('获取详情轮播图', res)
+				// console.log('获取详情轮播图', res)
 				this.swipers = res.data.message
 			},
 			// 获取详情参数
 			async getInfos() {
 				const res = await this.$myRequest({ url: '/api/goods/getinfo/' + this.id })
-				console.log('获取详情参数', res)
+				// console.log('获取详情参数', res)
 				this.goodsInfo = res.data.message[0]
 			},
 			// 获取详细介绍
 			async getDesc() {
 				const res = await this.$myRequest({ url: '/api/goods/getdesc/' + this.id })
-				console.log('获取详细介绍', res)
+				// console.log('获取详细介绍', res)
 				this.content = res.data.message[0].content
 			},
 			onClick (e) {

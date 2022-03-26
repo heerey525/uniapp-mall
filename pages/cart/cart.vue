@@ -15,29 +15,31 @@
 		<!-- 购物车列表 -->
 		<view class="cart_content">
 			<view class="cart_title">购物车</view>
-			<view class="cart_main">
-				<view class="cart_item" v-for="(item, index) in list" :key="item.id">
-					<view class="cart_check_wrap">
-						<checkbox-group @change="checkChange(index, $event)">
-							<checkbox value="0" :checked="item.checked" />
-						</checkbox-group>
-					</view>
-					<navigator class="cart_img_wrap">
-						<image :src="item.img_url"></image>
-					</navigator>
-					<view class="cart_info_wrap">
-						<view class="goods_name">{{ item.title }}</view>
-						<view class="goods_price_wrap">
-							<view class="goods_price">￥{{ item.sell_price }}</view>
-							<view class="cart_num_tool">
-								<view class="num_edit">-</view>
-								<view class="goods_num">{{ item.num }}</view>
-								<view class="num_edit">+</view>
+			<scroll-view class="cart_main" scroll-y>
+				<!-- <view class="cart_main"> -->
+					<view class="cart_item" v-for="(item, index) in list" :key="item.id">
+						<view class="cart_check_wrap">
+							<checkbox-group @change="checkChange(index, $event)">
+								<checkbox value="0" :checked="item.checked" />
+							</checkbox-group>
+						</view>
+						<navigator class="cart_img_wrap">
+							<image :src="item.img_url"></image>
+						</navigator>
+						<view class="cart_info_wrap">
+							<view class="goods_name">{{ item.title }}</view>
+							<view class="goods_price_wrap">
+								<view class="goods_price">￥{{ item.sell_price }}</view>
+								<view class="cart_num_tool">
+									<view class="num_edit">-</view>
+									<view class="goods_num">{{ item.num }}</view>
+									<view class="num_edit">+</view>
+								</view>
 							</view>
 						</view>
 					</view>
-				</view>
-			</view>
+				<!-- </view> -->
+			</scroll-view>
 		</view>
 		<!-- 底部结算 -->
 		<view class="footer_tool">
@@ -48,12 +50,12 @@
 			</view>
 			<view class="total_price_wrap">
 				<view class="total_price">
-					合计：<text class="total_price_text">￥999</text>
+					合计：<text class="total_price_text">￥{{ price }}</text>
 				</view>
 				<view>包含运费</view>
 			</view>
 			<view class="order_pay_wrap">
-				结算(2)
+				{{ num ? `结算(${num})` : '结算' }}
 			</view>
 		</view>
 	</view>
@@ -67,6 +69,8 @@
 				addressDetail: '',
 				list: [],
 				allCheck: false,
+				num: 0,
+				price: 0
 			}
 		},
 		onShow() {
@@ -82,6 +86,7 @@
 				this.list = cart
 			}
 			this.isCheckAll()
+			this.settlement()
 		},
 		methods: {
 			chooseAddress() {
@@ -101,6 +106,7 @@
 				uni.setStorageSync('cart', cart)
 				
 				this.isCheckAll()
+				this.settlement()
 			},
 			allCheckChange(e) {
 				const cart = uni.getStorageSync('cart')
@@ -110,12 +116,35 @@
 				})
 				uni.setStorageSync('cart', _cart)
 				this.list = [..._cart]
+				this.settlement()
 			},
 			isCheckAll() {
 				const cart = uni.getStorageSync('cart')
 				const unChecked = cart.filter(item => item.checked == false)
-				console.log('unChecked', unChecked)
 				this.allCheck = !unChecked.length
+			},
+			settlement() {
+				const cart = uni.getStorageSync('cart')
+				if (cart) {
+					const filters = cart.filter(item => item.checked === true)
+					if (!filters.length) {
+						this.num = 0
+						this.price = 0
+					} else if (filters.length === 1) {
+						const { num, sell_price } = filters[0]
+						this.num = num
+						this.price = sell_price * num
+					} else {
+						const { num, sell_price } = filters.reduce((a,b) => {
+							return {...a, num: a.num + b.num, sell_price: a.num * a.sell_price + b.num * b.sell_price }
+						})
+						this.num = num
+						this.price = sell_price
+					}
+				} else {
+					this.num = 0
+					this.price = 0
+				}
 			}
 		}
 	}
@@ -154,6 +183,12 @@
 			}
 
 			.cart_main {
+				// #ifdef H5 || APP-PLUS
+				height: calc(100vh - 500rpx);
+				// #endif
+				// #ifdef MP-WEIXIN
+				height: calc(100vh - 350rpx);
+				// #endif
 				.cart_item {
 					display: flex;
 					padding: 10rpx;

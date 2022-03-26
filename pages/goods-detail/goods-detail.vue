@@ -78,8 +78,12 @@
 			
 			const cart = uni.getStorageSync('cart')
 			if (cart) {
-				const num = cart.reduce((a,b) => a.num + b.num)
-				this.options[2].info = num
+				if (cart.length === 1) {
+					this.options[2].info = cart[0].num
+				} else {
+					const num = cart.reduce((a,b) => a.num + b.num)
+					this.options[2].info = num
+				}
 			}
 		},
 		methods: {
@@ -106,13 +110,19 @@
 					title: `点击${e.content.text}`,
 					icon: 'none'
 				})
+				
+				if (e.index === 2) {
+					uni.switchTab({
+						url: '/pages/cart/cart'
+					})
+				}
 			},
 			buttonClick (e) {
 				if (e.index === 0) {
 					this.options[2].info++
 					const cart = uni.getStorageSync('cart')
 					const { id, sell_price, title } = this.goodsInfo
-					const _cart = { id, sell_price, title, img_url: this.swipers[0].src, num: 1 }
+					const _cart = { id, sell_price, title, img_url: this.swipers[0].src, num: 1, checked: false }
 					if (!cart) {
 						uni.setStorageSync('cart', [_cart])
 					} else {

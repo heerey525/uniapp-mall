@@ -16,22 +16,22 @@
 		<view class="cart_content">
 			<view class="cart_title">购物车</view>
 			<view class="cart_main">
-				<view class="cart_item">
+				<view class="cart_item" v-for="(item, index) in list" :key="item.id">
 					<view class="cart_check_wrap">
-						<checkbox-group>
-							<checkbox value="0" />
+						<checkbox-group @change="checkChange(index, $event)">
+							<checkbox value="0" :checked="item.checked" />
 						</checkbox-group>
 					</view>
 					<navigator class="cart_img_wrap">
-						<image src="../../static/icon/cart-active.png" mode="widthFix"></image>
+						<image :src="item.img_url"></image>
 					</navigator>
 					<view class="cart_info_wrap">
-						<view class="goods_name">回家的回家大数据大数据大数据环境的时间促进伤口</view>
+						<view class="goods_name">{{ item.title }}</view>
 						<view class="goods_price_wrap">
-							<view class="goods_price">￥999</view>
+							<view class="goods_price">￥{{ item.sell_price }}</view>
 							<view class="cart_num_tool">
 								<view class="num_edit">-</view>
-								<view class="goods_num">10</view>
+								<view class="goods_num">{{ item.num }}</view>
 								<view class="num_edit">+</view>
 							</view>
 						</view>
@@ -42,8 +42,8 @@
 		<!-- 底部结算 -->
 		<view class="footer_tool">
 			<view class="all_check_wrap">
-				<checkbox-group name="">
-					<checkbox value="0" />全选
+				<checkbox-group name="" @change="allCheckChange">
+					<checkbox value="0" :checked="allCheck"/>全选
 				</checkbox-group>
 			</view>
 			<view class="total_price_wrap">
@@ -64,16 +64,24 @@
 		data() {
 			return {
 				addressInfo: {},
-				addressDetail: ''
+				addressDetail: '',
+				list: [],
+				allCheck: false,
 			}
 		},
-		onLoad() {
+		onShow() {
 			const address = uni.getStorageSync('address')
 			console.log('address', address, address.userName)
 			if (address) {
 				this.addressInfo = address
 				this.addressDetail = address.provinceName + address.cityName + address.countyName + address.detailInfo
 			}
+			
+			const cart = uni.getStorageSync('cart')
+			if (cart) {
+				this.list = cart
+			}
+			this.isCheckAll()
 		},
 		methods: {
 			chooseAddress() {
@@ -85,6 +93,29 @@
 						this.addressDetail = res.provinceName + res.cityName + res.countyName + res.detailInfo
 					}
 				})
+			},
+			checkChange(index, e) {
+				console.log('check', index, e)
+				const cart = uni.getStorageSync('cart')
+				cart[index].checked = !!e.detail.value.length
+				uni.setStorageSync('cart', cart)
+				
+				this.isCheckAll()
+			},
+			allCheckChange(e) {
+				const cart = uni.getStorageSync('cart')
+				const _cart = cart.map(item => {
+					item.checked = !!e.detail.value.length
+					return item
+				})
+				uni.setStorageSync('cart', _cart)
+				this.list = [..._cart]
+			},
+			isCheckAll() {
+				const cart = uni.getStorageSync('cart')
+				const unChecked = cart.filter(item => item.checked == false)
+				console.log('unChecked', unChecked)
+				this.allCheck = !unChecked.length
 			}
 		}
 	}
@@ -143,6 +174,7 @@
 
 						image {
 							width: 200rpx;
+							height: 200rpx;
 						}
 					}
 

@@ -48,13 +48,13 @@
 				}, {
 					icon: 'shop',
 					text: '店铺',
-					info: 2,
+					info: 0,
 					infoBackgroundColor: '#007aff',
 					infoColor: "red"
 				}, {
 					icon: 'cart',
 					text: '购物车',
-					info: 2
+					info: 0
 				}, ],
 				buttonGroup: [{
 						text: '加入购物车',
@@ -75,6 +75,12 @@
 			this.getSwipers()
 			this.getInfos()
 			this.getDesc()
+			
+			const cart = uni.getStorageSync('cart')
+			if (cart) {
+				const num = cart.reduce((a,b) => a.num + b.num)
+				this.options[2].info = num
+			}
 		},
 		methods: {
 			// 获取详情轮播图
@@ -102,8 +108,25 @@
 				})
 			},
 			buttonClick (e) {
-				console.log(e)
-				this.options[2].info++
+				if (e.index === 0) {
+					this.options[2].info++
+					const cart = uni.getStorageSync('cart')
+					const { id, sell_price, title } = this.goodsInfo
+					const _cart = { id, sell_price, title, img_url: this.swipers[0].src, num: 1 }
+					if (!cart) {
+						uni.setStorageSync('cart', [_cart])
+					} else {
+						const index = cart.findIndex(item => item.id == id)
+						if (index > -1) {
+							cart[index].num++
+						} else {
+							cart.push(_cart)
+						}
+						uni.setStorageSync('cart', cart)
+					}
+				} else {
+					console.log('立即购买')
+				}
 			}
 		}
 	}
